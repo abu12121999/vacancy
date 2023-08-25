@@ -155,6 +155,10 @@ class Database:
         # SQL_EXAMPLE = "SELECT * FROM Users where id=1 AND Name='John'"
         sql = "SELECT category, name, salary, location, description, deadline, author_id, file_id FROM Vacancy WHERE status == 'active' "
         return self.execute(sql, fetchall=True)
+    def select_passive_vacancy(self):
+        # SQL_EXAMPLE = "SELECT * FROM Users where id=1 AND Name='John'"
+        sql = "SELECT category, name, salary, location, description, deadline, author_id, file_id FROM Vacancy WHERE status == 'passive' "
+        return self.execute(sql, fetchall=True)
 
     def select_category(self, category_id):
         # SQL_EXAMPLE = "SELECT * FROM Users where id=1 AND Name='John'"

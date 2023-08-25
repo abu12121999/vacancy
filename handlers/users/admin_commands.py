@@ -9,6 +9,7 @@ async def create_category(message: types.Message):
               f"<b>/create_vacancy</b> - Vakansiya yaratish\n\n" \
               f"<b>/create_village</b> - Tumanga mahalla yaratib qo'shish\n\n" \
               f"<b>/active_vacancy</b> - Aktiv vakansiyalar\n\n" \
+              f"<b>/passive_vacancy</b> - Muddati o'tgan vakansiyalar\n\n" \
               f"<b>/numbers_of_members</b> - Bot a'zolari soni\n\n" \
 
 
