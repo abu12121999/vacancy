@@ -14,8 +14,10 @@ async def on_startup(dispatcher):
     try:
         db.create_table_users()
         db.create_table_vacancy()
+        db.create_table_vacant()
         db.create_table_category()
         db.create_table_village()
+
     except Exception as err:
         print(err)
 

@@ -78,12 +78,11 @@ class Database:
 """
         self.execute(sql, commit=True)
     def create_table_vacant(self):
-
         sql = """
         CREATE TABLE Vacant (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            vacant_id varchar(128) NOT NULL,
-            vacancy_id varchar(128) NOT NULL,
+            vacant_id varchar(16) NOT NULL,
+            vacancy_id varchar(16) NOT NULL
             );
 """
         self.execute(sql, commit=True)

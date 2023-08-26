@@ -1,11 +1,14 @@
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
 
 menuStart = ReplyKeyboardMarkup(
-    keyboard = [
+    keyboard=[
 
         [
             KeyboardButton(text='📖 Vakansiyalar'),
             KeyboardButton(text='👤 Ma\'lumotlarim'),
+        ],
+        [
+            KeyboardButton(text="💠Mening vakansiyalarim💠")
         ]
     ],
     resize_keyboard=True
