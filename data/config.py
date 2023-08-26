@@ -9,4 +9,4 @@ BOT_TOKEN = env.str("BOT_TOKEN")  # Bot toekn
 ADMINS = env.list("ADMINS")  # adminlar ro'yxati
 IP = env.str("ip")  # Xosting ip manzili
 CHANNELS = ["@workerandworkuz"]
-CHANNELS.append("-1001564623494")
+# CHANNELS.append("-1001564623494")

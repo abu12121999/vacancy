@@ -11,6 +11,8 @@ async def create_category(message: types.Message):
               f"<b>/active_vacancy</b> - Aktiv vakansiyalar\n\n" \
               f"<b>/passive_vacancy</b> - Muddati o'tgan vakansiyalar\n\n" \
               f"<b>/numbers_of_members</b> - Bot a'zolari soni\n\n" \
+              f"<b>/numbers_of_vacancy</b> - Botdagi vakansiyalar soni\n\n" \
+              f"<b>/vacants_list</b> - Vakantlar ro'yxati\n\n" \
 
 
         await message.answer(res)

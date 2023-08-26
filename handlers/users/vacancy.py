@@ -1,18 +1,51 @@
 from aiogram import types
-from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters import Text
 
-from keyboards.default import menu
+from data.config import ADMINS
+from keyboards.inline.vacancy_btn import vacancy_btn
 from loader import dp, db, bot
 
+page = 1
 
-@dp.message_handler(Text(equals='📖 Vakansiyalar'))
-async def vacancy(message: types.Message):
-    for vakansiya in db.select_active_vacancy():
+async def vac_page(user_id):
+    active_vacancies = db.select_active_vacancy()
+    if active_vacancies:
+        global page  # Foydalanish uchun global o'zgaruvchi
+        # Sahifalash uchun kerakli qismi ajratib olish
+        start_index = page - 1
+        vakansiya = active_vacancies[start_index]
         caption = f"<b>📁Kategoriya: {vakansiya[0]}\n\n</b>" \
                   f"<b>📝Nomi:</b> {vakansiya[1]}\n" \
                   f"<b>💰Ish haqqi:</b> {vakansiya[2]}\n" \
                   f"<b>📍Manzil:</b> {vakansiya[3]}\n" \
                   f"<b>🖇Ta'rif:</b> {vakansiya[4]}\n\n" \
                   f"<b>⏳Vakansiya muddati:</b> {vakansiya[5]}"
-        await bot.send_photo(chat_id=message.from_user.id, photo=vakansiya[-1], caption=caption)
+
+        # Inline keyboard yaratish
+        inline_keyboard = await vacancy_btn(page, len(active_vacancies))
+
+        # Rasmni yuborish
+        await bot.send_photo(chat_id=user_id, photo=vakansiya[-1], caption=caption,
+                             reply_markup=inline_keyboard)
+    else:
+        await bot.send_message(chat_id=user_id, text="Aktiv vakansiyalar mavjud emas")
+@dp.message_handler(Text(equals='📖 Vakansiyalar'))
+async def create_category(message: types.Message):
+
+    await vac_page(user_id=message.from_user.id)
+
+
+# Pagination tugmasi bosilganda ishlaydigan handler
+@dp.callback_query_handler(lambda c: c.data in ["prev_page", "next_page"])
+async def paginate_vacancies(callback_query: types.CallbackQuery):
+    global page
+
+    if callback_query.data == "prev_page" and page > 1:
+        page -= 1
+    elif callback_query.data == "next_page":
+        page += 1
+
+    await vac_page(user_id=callback_query.from_user.id)
+    await callback_query.message.delete()
+    await callback_query.answer(cache_time=60)
+

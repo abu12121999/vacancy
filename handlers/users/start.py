@@ -1,7 +1,7 @@
 import sqlite3
 from aiogram import types
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyboardRemove
-from data.config import CHANNELS
+from data.config import CHANNELS, ADMINS
 from loader import bot, dp, db
 from utils.misc import subscription
 from keyboards.default import menu
@@ -15,7 +15,10 @@ async def show_channels(message: types.Message):
     id = message.from_user.id
     all_tg_id = [x[0] for x in db.select_all_users()]
     if id in all_tg_id:
-        await message.answer("👇 Bosh menyu: ", reply_markup=menu.menuStart)
+        if id in ADMINS:
+            await message.answer("Admin xush kelibsiz! Admin buyruqlar ro'yxati /admin")
+        else:
+            await message.answer("👇 Bosh menyu: ", reply_markup=menu.menuStart)
     else:
         check_button = InlineKeyboardMarkup(row_width=1)
         for channel in CHANNELS:

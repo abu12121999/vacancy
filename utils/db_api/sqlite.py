@@ -77,6 +77,16 @@ class Database:
             );
 """
         self.execute(sql, commit=True)
+    def create_table_vacant(self):
+
+        sql = """
+        CREATE TABLE Vacant (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            vacant_id varchar(128) NOT NULL,
+            vacancy_id varchar(128) NOT NULL,
+            );
+"""
+        self.execute(sql, commit=True)
 
     @staticmethod
     def format_args(sql, parameters: dict):
@@ -98,6 +108,11 @@ class Database:
         VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         """
         return self.execute(sql, parameters=(location, category, name, author_id, salary, status, deadline, file_id, description, uuid), fetchone=True, commit=True)
+    def add_vacant(self, vacant_id, vacancy_id):
+        sql = """INSERT INTO Vacant (vacant_id, vacancy_id) 
+        VALUES(?, ?)
+        """
+        return self.execute(sql, parameters=(vacant_id, vacancy_id), fetchone=True, commit=True)
 
     def add_category(self, category_name):
         sql = """INSERT INTO Category(category_name) 
@@ -168,6 +183,12 @@ class Database:
     def numbers_active_vacancy(self):
         sql = """
         SELECT COUNT(*) FROM Vacancy WHERE status == "active"
+        """
+        return self.execute(sql, fetchone=True)
+
+    def numbers_passive_vacancy(self):
+        sql = """
+        SELECT COUNT(*) FROM Vacancy WHERE status == "passive"
         """
         return self.execute(sql, fetchone=True)
 
