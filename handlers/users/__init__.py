@@ -8,5 +8,6 @@ from . import create_vacancy
 from . import create_category
 from . import create_village
 from . import edit_user_info
+from . import my_interest
 from . import vacancy
 from . import echo

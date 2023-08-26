@@ -108,7 +108,7 @@ class Database:
         """
         return self.execute(sql, parameters=(location, category, name, author_id, salary, status, deadline, file_id, description, uuid), fetchone=True, commit=True)
     def add_vacant(self, vacant_id, vacancy_id):
-        sql = """INSERT INTO Vacant (vacant_id, vacancy_id) 
+        sql = """INSERT OR IGNORE INTO Vacant (vacant_id, vacancy_id) 
         VALUES(?, ?)
         """
         return self.execute(sql, parameters=(vacant_id, vacancy_id), fetchone=True, commit=True)
@@ -164,10 +164,18 @@ class Database:
         # SQL_EXAMPLE = "SELECT * FROM Users where id=1 AND Name='John'"
         sql = "SELECT * FROM Vacancy WHERE uuid == ?"
         return self.execute(sql, parameters=(uuid,), fetchone=True)
+    def select_vacancy_by_id(self, vacancy_id):
+        # SQL_EXAMPLE = "SELECT * FROM Users where id=1 AND Name='John'"
+        sql = "SELECT * FROM Vacancy WHERE vacancy_id == ?"
+        return self.execute(sql, parameters=(vacancy_id,), fetchone=True)
+    def select_vacant_by_id(self, vacant_id):
+        # SQL_EXAMPLE = "SELECT * FROM Users where id=1 AND Name='John'"
+        sql = "SELECT vacancy_id FROM Vacant WHERE vacant_id == ?"
+        return self.execute(sql, parameters=(vacant_id,), fetchone=True)
 
     def select_active_vacancy(self):
         # SQL_EXAMPLE = "SELECT * FROM Users where id=1 AND Name='John'"
-        sql = "SELECT category, name, salary, location, description, deadline, author_id, file_id FROM Vacancy WHERE status == 'active' "
+        sql = "SELECT category, name, salary, location, description, deadline, author_id, vacancy_id, file_id FROM Vacancy WHERE status == 'active' "
         return self.execute(sql, fetchall=True)
     def select_passive_vacancy(self):
         # SQL_EXAMPLE = "SELECT * FROM Users where id=1 AND Name='John'"
@@ -197,6 +205,7 @@ class Database:
         UPDATE Vacancy SET status = ? WHERE uuid == ?
         """
         return self.execute(sql, parameters=(status, uuid), commit=True)
+
 
 
 
