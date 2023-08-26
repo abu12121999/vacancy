@@ -8,7 +8,7 @@ menuStart = ReplyKeyboardMarkup(
             KeyboardButton(text='👤 Ma\'lumotlarim'),
         ],
         [
-            KeyboardButton(text="💠Mening vakansiyalarim💠")
+            KeyboardButton(text="💠Qiziqish bildirgan vakansiyalarim💠")
         ]
     ],
     resize_keyboard=True

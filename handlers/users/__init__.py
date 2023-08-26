@@ -3,6 +3,8 @@ from . import admin_start
 from . import start
 from . import cancel
 from . import admin_commands
+from . import edit
+from . import vacants_list
 from . import commands
 from . import create_vacancy
 from . import create_category

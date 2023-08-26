@@ -166,12 +166,12 @@ class Database:
         return self.execute(sql, parameters=(uuid,), fetchone=True)
     def select_vacancy_by_id(self, vacancy_id):
         # SQL_EXAMPLE = "SELECT * FROM Users where id=1 AND Name='John'"
-        sql = "SELECT * FROM Vacancy WHERE vacancy_id == ?"
-        return self.execute(sql, parameters=(vacancy_id,), fetchone=True)
+        sql = "SELECT category, name, salary, location, description, deadline, status, file_id FROM Vacancy WHERE vacancy_id == ?"
+        return self.execute(sql, parameters=(vacancy_id,), fetchall=True)
     def select_vacant_by_id(self, vacant_id):
         # SQL_EXAMPLE = "SELECT * FROM Users where id=1 AND Name='John'"
         sql = "SELECT vacancy_id FROM Vacant WHERE vacant_id == ?"
-        return self.execute(sql, parameters=(vacant_id,), fetchone=True)
+        return self.execute(sql, parameters=(vacant_id,), fetchall=True)
 
     def select_active_vacancy(self):
         # SQL_EXAMPLE = "SELECT * FROM Users where id=1 AND Name='John'"
@@ -259,8 +259,22 @@ class Database:
 
     def delete_users(self):
         self.execute("DELETE FROM Users WHERE TRUE", commit=True)
+    def delete_category(self, category_id):
+        self.execute("DELETE FROM Category WHERE category_id = ? ", parameters=(category_id,), commit=True)
 
+    def edit_category_name(self, category_name, category_id):
 
+        sql = f"""
+        UPDATE Category SET category_name=? WHERE category_id ==?
+        """
+        return self.execute(sql, parameters=(category_name, category_id,), commit=True)
+
+    def edit_category_from_vacancy(self, category_name, category_old):
+
+        sql = f"""
+        UPDATE Vacancy SET category=? WHERE category ==?
+        """
+        return self.execute(sql, parameters=(category_name, category_old,), commit=True)
 
 
 def logger(statement):

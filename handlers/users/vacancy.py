@@ -76,7 +76,10 @@ async def get_aggrement(query: CallbackQuery, state: FSMContext):
     vacant_id = query.from_user.id
     if a == "yes":
 
-        vacansies = db.select_vacant_by_id(vacant_id)
+        vacansies0 = db.select_vacant_by_id(vacant_id)
+        vacansies = []
+        for i in vacansies0:
+            vacansies.append(i[0])
 
         if vacancy_id not in vacansies:
             db.add_vacant(
