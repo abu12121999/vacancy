@@ -4,6 +4,7 @@ from . import start
 from . import cancel
 from . import admin_commands
 from . import edit
+from . import edit_village
 from . import vacants_list
 from . import commands
 from . import create_vacancy

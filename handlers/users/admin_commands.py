@@ -13,6 +13,8 @@ async def create_category(message: types.Message):
               f"<b>/numbers_of_members</b> - Bot a'zolari soni\n\n" \
               f"<b>/numbers_of_vacancy</b> - Botdagi vakansiyalar soni\n\n" \
               f"<b>/vacants_list</b> - Vakantlar ro'yxati\n\n" \
+              f"<b>/category_list</b> - Kategoriyalar ro'yxati\n\n" \
+              f"<b>/village_list</b> - Mahallalar ro'yxati\n\n" \
 
 
         await message.answer(res)

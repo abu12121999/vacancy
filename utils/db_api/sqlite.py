@@ -143,6 +143,11 @@ class Database:
         SELECT * FROM Category
         """
         return self.execute(sql, fetchall=True)
+    def select_all_village(self):
+        sql = """
+        SELECT * FROM Village
+        """
+        return self.execute(sql, fetchall=True)
 
     def select_user(self, **kwargs):
         # SQL_EXAMPLE = "SELECT * FROM Users where id=1 AND Name='John'"
@@ -261,6 +266,8 @@ class Database:
         self.execute("DELETE FROM Users WHERE TRUE", commit=True)
     def delete_category(self, category_id):
         self.execute("DELETE FROM Category WHERE category_id = ? ", parameters=(category_id,), commit=True)
+    def delete_village(self, village_id):
+        self.execute("DELETE FROM Village WHERE village_id = ? ", parameters=(village_id,), commit=True)
 
     def edit_category_name(self, category_name, category_id):
 
@@ -268,6 +275,12 @@ class Database:
         UPDATE Category SET category_name=? WHERE category_id ==?
         """
         return self.execute(sql, parameters=(category_name, category_id,), commit=True)
+    def edit_village_name(self, village_name, village_id):
+
+        sql = f"""
+        UPDATE Village SET village_name=? WHERE village_id ==?
+        """
+        return self.execute(sql, parameters=(village_name, village_id,), commit=True)
 
     def edit_category_from_vacancy(self, category_name, category_old):
 
