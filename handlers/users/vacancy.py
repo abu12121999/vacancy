@@ -4,9 +4,8 @@ from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters import Text
 from aiogram.types import CallbackQuery
 
-from data.config import ADMINS
 from keyboards.inline.aggrement import aggre
-from keyboards.inline.vacancy_btn import vacancy_btn, vacancy_btn_user
+from keyboards.inline.vacancy_btn import  vacancy_btn_user
 from loader import dp, db, bot
 
 page = 1

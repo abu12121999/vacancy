@@ -63,4 +63,4 @@ async def page_vacancies(callback_query: types.CallbackQuery):
     await vacants_page(id=id, user_id=callback_query.from_user.id)
     await callback_query.message.delete()
     await callback_query.answer(cache_time=60)
-############################################################################################################
+################################edit or delete vacancy##############################################################

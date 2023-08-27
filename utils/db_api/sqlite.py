@@ -215,6 +215,21 @@ class Database:
         UPDATE Vacancy SET status = ? WHERE uuid == ?
         """
         return self.execute(sql, parameters=(status, uuid), commit=True)
+    def edit_vacancy_status_by_id(self, status, vacancy_id):
+
+        sql = f"""
+        UPDATE Vacancy SET status = ? WHERE vacancy_id == ?
+        """
+        return self.execute(sql, parameters=(status, vacancy_id), commit=True)
+    def edit_vacancy(self, category, name, salary, description, file_id, deadline, status, vacancy_id):
+
+        sql = f"""
+        UPDATE Vacancy SET category= ?, name= ?, salary= ?, description= ?, file_id= ?, deadline= ?, status= ?
+        WHERE vacancy_id == ?
+        """
+        return self.execute(sql,
+                            parameters=(category, name, salary, description, file_id, deadline, status, vacancy_id),
+                            commit=True)
 
     def count_users(self):
         return self.execute("SELECT COUNT(*) FROM Users;", fetchone=True)
@@ -230,6 +245,8 @@ class Database:
         self.execute("DELETE FROM Users WHERE TRUE", commit=True)
     def delete_category(self, category_id):
         self.execute("DELETE FROM Category WHERE category_id = ? ", parameters=(category_id,), commit=True)
+    def delete_vacancy(self, vacancy_id):
+        self.execute("DELETE FROM Vacancy WHERE vacancy_id = ? ", parameters=(vacancy_id,), commit=True)
     def delete_village(self, village_id):
         self.execute("DELETE FROM Village WHERE village_id = ? ", parameters=(village_id,), commit=True)
 

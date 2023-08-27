@@ -11,6 +11,13 @@ class vacancy_add(state.StatesGroup):
     deadline = state.State()
     rozi = state.State()
 
-
+class vacancy_edit(state.StatesGroup):
+    category = state.State()
+    name = state.State()
+    salary = state.State()
+    description = state.State()
+    file = state.State()
+    deadline = state.State()
+    rozi = state.State()
 
 

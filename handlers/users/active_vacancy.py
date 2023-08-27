@@ -46,3 +46,4 @@ async def paginate_vacancies(callback_query: types.CallbackQuery):
     await vac_page(user_id=callback_query.from_user.id)
     await callback_query.message.delete()
     await callback_query.answer(cache_time=60)
+######################################active_vacancy###################################################################

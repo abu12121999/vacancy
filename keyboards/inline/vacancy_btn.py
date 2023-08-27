@@ -6,8 +6,8 @@ async def vacancy_btn(page: int, total_pages: int, id):
         markup.insert(InlineKeyboardButton(text="⬅️ Ortga", callback_data="prev_page"))
     if page < total_pages:
         markup.insert(InlineKeyboardButton(text="Keyingi ➡️", callback_data="next_page"))
-    markup.add(InlineKeyboardButton(text="🗑O'chirish", callback_data=f"del_act"))
-    markup.insert(InlineKeyboardButton(text="✏️Tahrirlash", callback_data=f"change_act"))
+    markup.add(InlineKeyboardButton(text="🗑O'chirish", callback_data=f"del_vac_{id}"))
+    markup.insert(InlineKeyboardButton(text="✏️Tahrirlash", callback_data=f"change_vac_{id}"))
     markup.insert(InlineKeyboardButton(text="📋Nomzodlar ro'yxati", callback_data=f"vacants_list_{id}"))
     return markup
 
@@ -17,8 +17,8 @@ async def vacancy_btn_passive(page: int, total_pages: int, id):
         markup.insert(InlineKeyboardButton(text="⬅️ Ortga", callback_data="prev_passive"))
     if page < total_pages:
         markup.insert(InlineKeyboardButton(text="Keyingi ➡️", callback_data="next_passive"))
-    markup.add(InlineKeyboardButton(text="🗑O'chirish", callback_data=f"del_pass"))
-    markup.insert(InlineKeyboardButton(text="✏️Tahrirlash", callback_data=f"change_pass"))
+    markup.add(InlineKeyboardButton(text="🗑O'chirish", callback_data=f"del_vac_{id}"))
+    markup.insert(InlineKeyboardButton(text="✏️Tahrirlash", callback_data=f"change_vac_{id}"))
     markup.insert(InlineKeyboardButton(text="📋Nomzodlar ro'yxati", callback_data=f"vacants_list_{id}"))
     return markup
 async def vacancy_btn_nomzod(page, total_pages, vac_id):
