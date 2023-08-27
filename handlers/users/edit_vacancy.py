@@ -9,15 +9,12 @@ from keyboards.inline.categories import category_list
 from keyboards.inline.aggrement import aggre
 from loader import db, dp, bot
 from states.vacancyADD import vacancy_edit
-import uuid
 ######################
 async def edit_vacancyy(id):
     try:
         db.edit_vacancy_status_by_id(status="passive", vacancy_id=id)
     except:
         pass
-####################
-
 ######################################################################################
 @dp.callback_query_handler(lambda c: "change_vac" in c.data)
 async def change_vacancy(query: CallbackQuery, state: FSMContext):
@@ -211,7 +208,6 @@ async def get_aggrement_delete(query: CallbackQuery, state: FSMContext):
     else:
         await query.message.answer(f"<b>❌Vakansiya o'chirilmadi</b>")
         await state.finish()
-
     await query.message.delete()
     await query.answer(cache_time=60)
 
