@@ -6,8 +6,6 @@ from keyboards.inline.aggrement import aggre
 from data.config import ADMINS
 from loader import db, dp
 from states.categoryADD import category_add
-
-from utils.db_api.districts import districts
 @dp.message_handler(commands=["create_category"])
 async def create_category(message: types.Message):
     if str(message.from_user.id) in ADMINS:
@@ -15,7 +13,6 @@ async def create_category(message: types.Message):
         await category_add.name.set()
     else:
         await message.answer(f"⚠️Bu buyruq faqat adminlar uchun!")
-
 ######################################################################################
 @dp.message_handler(state=category_add.name)
 async def get_village(message: types.Message, state: FSMContext):
@@ -27,8 +24,6 @@ async def get_village(message: types.Message, state: FSMContext):
     btn = await aggre(foo="c_aggre")
     await message.answer(text=res, reply_markup=btn)
     await category_add.aggre.set()
-
-
 ######################################################################################
 @dp.callback_query_handler(lambda c: "c_aggre" in c.data, state=category_add.aggre)
 async def get_aggrement(query: CallbackQuery, state: FSMContext):
@@ -43,7 +38,6 @@ async def get_aggrement(query: CallbackQuery, state: FSMContext):
     else:
         await query.message.answer(f"<b>❌Kategoriya yaratilmadi</b>")
         await state.finish()
-
     await query.message.delete()
     await query.answer(cache_time=60)
 

@@ -1,17 +1,10 @@
 
 from aiogram import types
-from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters import Text
-from aiogram.types import CallbackQuery
-
-from data.config import ADMINS
-from keyboards.inline.aggrement import aggre
-from keyboards.inline.vacancy_btn import vacancy_btn, vacancy_btn_user, vacancy_btn_interest
+from keyboards.inline.vacancy_btn import vacancy_btn_interest
 from loader import dp, db, bot
 
-
 page = 1
-
 async def interest_vac_page(user_id):
     vacant_id = user_id
     vacansies_id = db.select_vacant_by_id(vacant_id=vacant_id)
@@ -20,7 +13,6 @@ async def interest_vac_page(user_id):
         vacansies.append(
             db.select_vacancy_by_id(i[0])[0]
         )
-        print(vacansies)
     if vacansies:
         global page  # Foydalanish uchun global o'zgaruvchi
         # Sahifalash uchun kerakli qismi ajratib olish

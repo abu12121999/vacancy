@@ -7,8 +7,6 @@ from data.config import ADMINS
 from keyboards.inline.edit import edit
 from loader import db, dp
 from states.change import change_category
-
-from utils.db_api.districts import districts
 @dp.message_handler(commands=["category_list"])
 async def list_category(message: types.Message):
     if str(message.from_user.id) in ADMINS:
@@ -64,7 +62,6 @@ async def get_del_cat_aggrement(query: CallbackQuery, state: FSMContext):
     await query.message.delete()
     await query.answer(cache_time=60)
 ####
-
 @dp.callback_query_handler(lambda c: "change_cat" in c.data, state=change_category.type)
 async def change_cat(query: CallbackQuery, state: FSMContext):
     await query.answer()
@@ -74,8 +71,6 @@ async def change_cat(query: CallbackQuery, state: FSMContext):
     await change_category.name.set()
     await query.message.delete()
     await query.answer(cache_time=60)
-
-
 @dp.message_handler(state=change_category.name)
 async def get_new_cat_name(message: types.Message, state: FSMContext):
     category_name = message.text.capitalize()
@@ -88,8 +83,6 @@ async def get_new_cat_name(message: types.Message, state: FSMContext):
     btn = await aggre(foo="change_ag_cat")
     await message.answer(text=res, reply_markup=btn)
     await change_category.aggre.set()
-
-
 ######################################################################################
 @dp.callback_query_handler(lambda c: "change_ag_cat" in c.data, state=change_category.aggre)
 async def cahnge_cat(query: CallbackQuery, state: FSMContext):
@@ -106,7 +99,6 @@ async def cahnge_cat(query: CallbackQuery, state: FSMContext):
     else:
         await query.message.answer(f"<b>❌Kategoriya nomi o'zgartirilmadi</b>")
         await state.finish()
-
     await query.message.delete()
     await query.answer(cache_time=60)
 

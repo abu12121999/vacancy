@@ -5,8 +5,9 @@ from . import cancel
 from . import admin_commands
 from . import edit
 from . import edit_village
-from . import vacants_list
 from . import commands
+from . import active_vacancy
+from . import passive_vacancy
 from . import create_vacancy
 from . import create_category
 from . import create_village

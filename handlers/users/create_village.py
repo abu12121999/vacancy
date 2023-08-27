@@ -6,7 +6,6 @@ from keyboards.inline.aggrement import aggre
 from data.config import ADMINS
 from loader import db, dp
 from states.villageADD import village_add
-
 from utils.db_api.districts import districts
 @dp.message_handler(commands=["create_village"])
 async def create_village(message: types.Message):
@@ -45,8 +44,6 @@ async def get_village(message: types.Message, state: FSMContext):
     btn = await aggre(foo="v_aggre")
     await message.answer(text=res, reply_markup=btn)
     await village_add.aggre.set()
-
-
 ######################################################################################
 @dp.callback_query_handler(lambda c: "v_aggre" in c.data, state=village_add.aggre)
 async def get_aggrement(query: CallbackQuery, state: FSMContext):

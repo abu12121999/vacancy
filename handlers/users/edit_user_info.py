@@ -1,7 +1,6 @@
 from aiogram import types
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters import Text
-
 from keyboards.default import menu
 from loader import dp, db
 from states.edit_info import EDIT
@@ -47,8 +46,6 @@ async def get_edit_name(message: types.Message, state: FSMContext):
             await message.answer(f"❌{name}<b> ism xato kiritildi.\n\n"
                                  f"✏️Ismingizni qaytadan kiriting</b>\n<i>Misol uchun:</i> <code>Abdulla</code>")
             await EDIT.edit_name.set()
-
-
 ########################################################################################################################
 #familiya olish uchun handler
 @dp.message_handler(state=EDIT.edit_surname)

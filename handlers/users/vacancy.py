@@ -35,10 +35,7 @@ async def vac_page(user_id):
         await bot.send_message(chat_id=user_id, text="Aktiv vakansiyalar mavjud emas")
 @dp.message_handler(Text(equals='📖 Vakansiyalar'))
 async def create_category(message: types.Message):
-
     await vac_page(user_id=message.from_user.id)
-
-
 # Pagination tugmasi bosilganda ishlaydigan handler
 @dp.callback_query_handler(lambda c: c.data in ["prev_user", "next_user"])
 async def paginate_vacancies(callback_query: types.CallbackQuery):
@@ -93,7 +90,6 @@ async def get_aggrement(query: CallbackQuery, state: FSMContext):
     else:
         await query.message.answer(f"<b>❌Sizning vakansiyaga qiziqishingiz qayd etilmadi!</b>")
         await state.finish()
-
     await query.message.delete()
     await query.answer(cache_time=60)
 

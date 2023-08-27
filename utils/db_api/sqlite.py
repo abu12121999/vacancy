@@ -178,13 +178,18 @@ class Database:
         sql = "SELECT vacancy_id FROM Vacant WHERE vacant_id == ?"
         return self.execute(sql, parameters=(vacant_id,), fetchall=True)
 
+    def select_vacants_id(self, id):
+        # SQL_EXAMPLE = "SELECT * FROM Users where id=1 AND Name='John'"
+        sql = "SELECT vacant_id FROM Vacant WHERE vacancy_id == ?"
+        return self.execute(sql, parameters=(id,),  fetchall=True)
+
     def select_active_vacancy(self):
         # SQL_EXAMPLE = "SELECT * FROM Users where id=1 AND Name='John'"
         sql = "SELECT category, name, salary, location, description, deadline, author_id, vacancy_id, file_id FROM Vacancy WHERE status == 'active' "
         return self.execute(sql, fetchall=True)
     def select_passive_vacancy(self):
         # SQL_EXAMPLE = "SELECT * FROM Users where id=1 AND Name='John'"
-        sql = "SELECT category, name, salary, location, description, deadline, author_id, file_id FROM Vacancy WHERE status == 'passive' "
+        sql = "SELECT category, name, salary, location, description, deadline, author_id, vacancy_id, file_id FROM Vacancy WHERE status == 'passive' "
         return self.execute(sql, fetchall=True)
 
     def select_category(self, category_id):
@@ -211,41 +216,8 @@ class Database:
         """
         return self.execute(sql, parameters=(status, uuid), commit=True)
 
-
-
-
-
-
-
-
-
-
-
-    def select_all_id_tests(self):
-        return self.execute("SELECT test_id FROM Tests ", fetchall=True)
-
-    def select_participiant(self, a_test_id):
-        sql = """SELECT a_member_id FROM Answers WHERE a_test_id== ?"""
-        return self.execute(sql, parameters=(a_test_id,), fetchall=True)
-
-    def select_test(self, **kwargs):
-        sql = "SELECT * FROM Tests WHERE "
-        sql, parameters = self.format_args(sql, kwargs)
-        return self.execute(sql, parameters=parameters, fetchone=True)
-
-    def active_tests(self):
-        sql = "SELECT test_author, test_name, test_answers, test_id FROM Tests WHERE test_status=='Faol' "
-        return self.execute(sql, fetchall=True)
-
-    def select_answer(self, a_test_id, a_member_id):
-        sql = f"""SELECT * FROM Answers WHERE a_test_id == ? AND a_member_id == ?"""
-        return self.execute(sql, parameters=(a_test_id, a_member_id,), fetchone=True)
-
     def count_users(self):
         return self.execute("SELECT COUNT(*) FROM Users;", fetchone=True)
-
-    def count_tests(self):
-        return self.execute("SELECT COUNT(*) FROM Tests;", fetchone=True)
 
     def edit_user_info(self, first_name, last_name, telegram_id):
 
@@ -253,14 +225,6 @@ class Database:
         UPDATE Users SET first_name=?, last_name=? WHERE telegram_id ==?
         """
         return self.execute(sql, parameters=(first_name, last_name, telegram_id), commit=True)
-
-    def test_end(self, test_id):
-        sql = f"""UPDATE Tests SET test_status="Yakunlangan" WHERE test_id == ?"""
-        return self.execute(sql, parameters=(test_id,), commit=True)
-
-    def select_result(self, a_test_id):
-        sql = """SELECT a_name_surname, a_ball, a_time FROM Answers WHERE a_test_id == ? ORDER BY a_ball DESC"""
-        return self.execute(sql, parameters=(a_test_id,), fetchall=True)
 
     def delete_users(self):
         self.execute("DELETE FROM Users WHERE TRUE", commit=True)

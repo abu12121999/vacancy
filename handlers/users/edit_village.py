@@ -1,7 +1,6 @@
 from aiogram import types
 from aiogram.dispatcher import FSMContext
 from aiogram.types import CallbackQuery
-from keyboards.inline.categories import category_list
 from keyboards.inline.aggrement import aggre
 from data.config import ADMINS
 from keyboards.inline.districst import district_list
@@ -9,7 +8,6 @@ from keyboards.inline.edit import edit
 from keyboards.inline.villages import village_list
 from loader import db, dp
 from states.change import change_villa
-
 from utils.db_api.districts import districts
 @dp.message_handler(commands=["village_list"])
 async def create_vacancy(message: types.Message):
@@ -38,8 +36,6 @@ async def get_regg_id(query: CallbackQuery, state: FSMContext):
         await state.finish()
         await query.message.delete()
         await query.answer(cache_time=60)
-
-
 ######################################################################################
 @dp.callback_query_handler(lambda c: "chanvil" in c.data, state=change_villa.vil)
 async def get_category_id(query: CallbackQuery,state: FSMContext):
@@ -110,8 +106,6 @@ async def get_new_cat_name(message: types.Message, state: FSMContext):
     btn = await aggre(foo="cangvil")
     await message.answer(text=res, reply_markup=btn)
     await change_villa.aggre.set()
-
-
 ######################################################################################
 @dp.callback_query_handler(lambda c: "cangvil" in c.data, state=change_villa.aggre)
 async def cahnge_cat(query: CallbackQuery, state: FSMContext):

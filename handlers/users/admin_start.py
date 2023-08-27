@@ -2,8 +2,6 @@ from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from aiogram import types
 from data.config import CHANNELS, ADMINS
 from loader import bot, dp, db
-
-
 @dp.message_handler(commands=['start'])
 async def admin_start(message: types.Message):
     id = message.from_user.id

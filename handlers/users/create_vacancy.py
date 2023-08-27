@@ -4,9 +4,7 @@ from aiogram import types
 from aiogram.dispatcher import FSMContext
 from aiogram.types import CallbackQuery
 import re
-
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
-
 from keyboards.inline.districst import district_list
 from keyboards.inline.villages import village_list
 from keyboards.inline.categories import category_list
@@ -23,7 +21,6 @@ async def edit_vacancy(u_id):
         db.edit_vacancy_status(status="passive", uuid=u_id)
     except:
         pass
-
 ####################
 @dp.message_handler(commands=["create_vacancy"])
 async def create_vacancy(message: types.Message):
@@ -33,7 +30,6 @@ async def create_vacancy(message: types.Message):
         await vacancy_add.location1.set()
     else:
         await message.answer(f"⚠️Bu buyruq faqat adminlar uchun!")
-
 ######################################################################################
 @dp.callback_query_handler(lambda c: "vacant" in c.data, state=vacancy_add.location1)
 async def get_reg_id(query: CallbackQuery, state: FSMContext):
@@ -53,7 +49,6 @@ async def get_reg_id(query: CallbackQuery, state: FSMContext):
         await state.finish()
         await query.message.delete()
         await query.answer(cache_time=60)
-
 ######################################################################################
 @dp.callback_query_handler(lambda c: "btnvilla" in c.data, state=vacancy_add.location2)
 async def get_loacation2_id(query: CallbackQuery, state: FSMContext):
@@ -197,8 +192,6 @@ async def get_aggrement(query: CallbackQuery, state: FSMContext):
         scheduler = AsyncIOScheduler(timezone=pytz.timezone("Asia/Tashkent"))
         scheduler.add_job(edit_vacancy, 'date', run_date=scheduled_datetime, args=[u_id])
         scheduler.start()
-
-
         await query.message.answer(f"<b>✅Vakansiya muvaffaqiyatli yaratildi</b>")
         await state.finish()
     else:
